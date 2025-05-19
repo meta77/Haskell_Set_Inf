@@ -10,3 +10,11 @@ natSet = map Nat [0..]
 intSet :: [Integer]
 intSet = interleave [0..] (tail $ map negate [0..])
   where interleave (x:xs) ys = x : interleave ys xs
+
+-- 実数の近似モデル
+import Data.Ratio (Ratio, (%))
+
+-- 有理数の列（例：1/1, 1/2, 2/1, 1/3, 3/1, ...）※任意の順序で全体生成可能
+rationalSet :: [Rational]
+rationalSet = [n % d | d <- [1..], n <- [-d..d]]
+
