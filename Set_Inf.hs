@@ -11,10 +11,30 @@ intSet :: [Integer]
 intSet = interleave [0..] (tail $ map negate [0..])
   where interleave (x:xs) ys = x : interleave ys xs
 
+
+
 -- 実数の近似モデル
+
+-- 方法1
 import Data.Ratio (Ratio, (%))
 
 -- 有理数の列（例：1/1, 1/2, 2/1, 1/3, 3/1, ...）※任意の順序で全体生成可能
 rationalSet :: [Rational]
 rationalSet = [n % d | d <- [1..], n <- [-d..d]]
 
+
+-- 方法２
+type RealApprox = Double  -- 近似的に使う
+
+realSet :: [RealApprox]
+realSet = [-1.0, -0.9 .. 1.0] ++ [1.1, 1.2 ..] ++ [-1.1, -1.2 ..]
+
+
+
+-- 抽象へ
+
+--　ベース
+data InfiniteSet a = InfiniteSet {
+  elements :: [a],         -- 要素列（遅延評価）
+  belongs  :: a -> Bool    -- 属するかどうかの述語
+}
