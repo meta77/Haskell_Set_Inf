@@ -5,3 +5,8 @@ newtype Nat = Nat Integer deriving (Eq, Ord, Show)
 -- 自然数の集合の定義
 natSet :: [Nat]
 natSet = map Nat [0..]
+
+-- 整数
+intSet :: [Integer]
+intSet = interleave [0..] (tail $ map negate [0..])
+  where interleave (x:xs) ys = x : interleave ys xs
