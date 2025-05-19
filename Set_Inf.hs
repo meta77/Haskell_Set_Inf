@@ -38,3 +38,26 @@ data InfiniteSet a = InfiniteSet {
   elements :: [a],         -- 要素列（遅延評価）
   belongs  :: a -> Bool    -- 属するかどうかの述語
 }
+
+-- 自然数
+naturalNumbers :: InfiniteSet Nat
+naturalNumbers = InfiniteSet {
+  elements = map Nat [0..],
+  belongs  = \(Nat n) -> n >= 0
+}
+
+
+-- 整数
+integers :: InfiniteSet Integer
+integers = InfiniteSet {
+  elements = intSet,
+  belongs  = const True
+}
+
+
+-- 実数の近似
+realNumbers :: InfiniteSet Double
+realNumbers = InfiniteSet {
+  elements = [-1000.0, -999.9 .. 1000.0],
+  belongs  = const True
+}
